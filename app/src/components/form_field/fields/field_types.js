@@ -1,5 +1,6 @@
 import React from 'react';
 import BaseField from './base_field';
+import './fields_style.css';
 
 class TextField extends BaseField {
 
@@ -12,16 +13,12 @@ class TextField extends BaseField {
     }
 
     render() {
-        return (
-            <div>
-                <label style={{display: "flex", flexDirection: "column"}}>
-                    {this.props.inner_props.name}
-                    <input type='text'
-                           name={this.props.inner_props.name}
-                           onChange={this.handleChange} />
-                </label>
-            </div>
-        );
+        let component = <input className="InnerField"
+                               type='text'
+                               name={this.props.inner_props.name}
+                               onChange={this.handleChange} />;
+        let rendered_component = this.render_component(component);
+        return rendered_component;
     }
 }
 
@@ -39,16 +36,10 @@ class PickerField extends BaseField {
         let options = this.props.inner_props.options.map((opt, idx) => {
             return <option index={idx} value={opt} key={opt}>{opt}</option>
         })
-        return (
-            <div>
-                <label style={{display: "flex", flexDirection: "column", padding: 15}}>
-                    {this.props.inner_props.name}
-                    <select onChange={this.handleChange}>
-                        {options}
-                    </select>
-                </label>
-            </div>
-        );
+
+        let component = (<select onChange={this.handleChange} className="Field">{options}</select>);
+        let rendered_component = this.render_component(component);
+        return rendered_component;
     }
 }
 

@@ -1,0 +1,14 @@
+.InnerField {
+    width: 100%;
+    height: 25%;
+};
+
+.OuterField {
+    display: flex;
+    flex-direction: row;
+}
+
+.FieldDescription {
+    display: flex;
+    flex-direction: column;
+}

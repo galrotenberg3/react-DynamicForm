@@ -46,6 +46,30 @@ class BaseField extends React.Component {
         }
     }
 
+    show_description = (event) => {
+        return;
+    }
+
+    render_component = (component) => {
+        return (
+            <div>
+                <label className="OuterField">
+                    {this.render_description()}
+                    {component}
+                </label>
+            </div>
+        )
+    }
+
+    render_description(){
+        return (
+            <label className="FieldDescription">
+                {this.props.inner_props.name}
+                <button onClick={this.show_description}>?</button>
+            </label>
+        );
+    }
+
     render(){
         console.log("Not Implemented!");
         return;
