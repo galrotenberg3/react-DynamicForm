@@ -29,19 +29,40 @@ class ChangeForm extends React.Component {
         {
           name: "field-1",
           description: "field-1 description",
-          type: "text"
+          type: "text",
+          allowed_values: ["hello", "roger"],
+          regex: "*stam*"
         },
         {
           name: "field-2",
           description: "field-2 description",
           type: "picker",
-          options: ["value-1", "value-2", "value-3", "value-4"]
+          options: ["value-1", "value-2", "value-3", "value-4"],
+          multi_choice: false
         },
         {
           name: "field-3",
           description: "field-3 description",
-          type: "number"
-        }
+          type: "number",
+          range: false,
+          max_value: 20,
+          min_value: -5.5
+        },
+        {
+          name: "field-4",
+          description: "field-3 description",
+          type: "number",
+          range: true,
+          max_value: 20,
+          min_value: -5.5
+        },
+        {
+          name: "field-5",
+          description: "field-2 description",
+          type: "picker",
+          options: ["value-1", "value-2", "value-3", "value-4"],
+          multi_choice: true
+        },
       ]
     };
 
