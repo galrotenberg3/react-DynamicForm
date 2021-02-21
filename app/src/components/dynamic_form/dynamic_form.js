@@ -53,8 +53,16 @@ class DynamicForm extends React.Component {
     }
 
     generate_fields = (form_schema) => {
+        var default_mandatory = true;
+        if('default_mandatory' in form_schema) {
+            default_mandatory = form_schema.default_mandatory;
+        }
         var output = []
         form_schema.fields.forEach(field => {
+                if(!('mandatory' in field))  // add mandatory by default
+                {
+                    field['mandatory'] = default_mandatory;
+                }
                 let form_field = <FormField key={field.name}
                                             field_data={field}
                                             form_ref={this} />

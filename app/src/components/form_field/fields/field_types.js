@@ -5,7 +5,18 @@ import './fields_style.css';
 class TextField extends BaseField {
 
     validate_value = () => {
-        return this.state.value !== null;
+        if(!this.mandatory_validation(this.state.value)) {
+            return false;
+        }
+        else if(!this.validate_regex()) {
+            return false;
+        }
+        else if(!this.validate_allowed_values()) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     generate_error_msg = () => {
@@ -25,7 +36,7 @@ class TextField extends BaseField {
 class PickerField extends BaseField {
 
     validate_value = () => {
-        return true;
+        return this.mandatory_validation(this.state.value);
     }
 
     generate_error_msg = () => {
@@ -45,12 +56,55 @@ class PickerField extends BaseField {
 
 class NumberField extends TextField {
     validate_value = () => {
-        let current_value = this.state.value;
-        return !isNaN(current_value);
+        if(!this.mandatory_validation(this.state.value)) {
+            return false;
+        }
+        else if(isNaN(this.state.value)) {
+            return false;
+        }
+        else if(!(this.validate_max_value() && this.validate_min_value())) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     generate_error_msg = () => {
         return "NumberField " + "'" + this.props.inner_props.name + "' has invalid value";
+    }
+}
+
+class RangeField extends BaseField {
+    handleChangeMin = (event) => {
+        var value = event.target.value;
+        this.setState((prev_state => {
+            let current_value = prev_state.value;
+            let new_value = [];
+            if(current_value !== null)
+            {
+                new_value = current_value;
+            }
+            else
+            {
+                new_value[0] = null;
+                new_value[1] = null;
+            }
+            new_value[0] = value;
+            return {value: new_value};
+        }))
+    }
+    render() {
+        let component = (<div>
+                            <input type="text"
+                                   name={this.props.inner_props.name + "_min"}
+                                   onChange={this.handleChangeMin} />
+                            <input type="text"
+                                   name={this.props.inner_props.name + "_max"}
+                                   onChange={this.handleChangeMax} />
+                         </div>)
+        let rendered_component = this.render_component(component);
+        return rendered_component;
     }
 }
 

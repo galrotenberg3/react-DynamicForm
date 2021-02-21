@@ -60,6 +60,8 @@ class ChangeForm extends React.Component {
           name: "field-5",
           description: "field-2 description",
           type: "picker",
+          default: null,
+          mandatory: false,
           options: ["value-1", "value-2", "value-3", "value-4"],
           multi_choice: true
         },
